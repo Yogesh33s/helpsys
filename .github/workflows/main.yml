@@ -1,0 +1,32 @@
+name: Java CI with Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Maven Project
+        working-directory: backend
+        run: mvn clean package
+
+      - name: Build Backend Docker Image
+        run: docker build -t helpsys-backend ./backend
+
+      - name: Build Frontend Docker Image
+        run: docker build -t helpsys-frontend ./frontend
