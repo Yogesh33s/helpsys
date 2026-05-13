@@ -1,0 +1,18 @@
+services:
+
+  frontend:
+    image: yogesh33s/helpsys-frontend:latest
+    ports:
+      - "3000:80"
+
+  backend:
+    image: yogesh33s/helpsys-backend:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
